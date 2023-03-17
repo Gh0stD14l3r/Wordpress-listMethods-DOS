@@ -49,3 +49,8 @@ The concept is really simple, it spams the living piss out of listMethods with a
 request the response is amplified. As long as we request more from the webserver than
 what we put in it will always result in a DOS
 ```
+
+![Capture1](https://user-images.githubusercontent.com/38970826/226070691-6fc84415-8f21-4e1f-a7c7-9454c79d0d6d.PNG)
+
+![Capture2](https://user-images.githubusercontent.com/38970826/226070700-74a2bf7c-576b-44d7-90ad-1089c7842303.PNG)
+
