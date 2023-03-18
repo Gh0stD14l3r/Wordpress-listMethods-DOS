@@ -39,7 +39,7 @@ def artillery ():
 def runPersistence ():
 	print("Restarting script " + ['python'] + sys.argv)
 	os.execv(sys.executable, ['python'] + sys.argv)
-
+ 
 if __name__ == '__main__':
 	params = sys.argv
 		
